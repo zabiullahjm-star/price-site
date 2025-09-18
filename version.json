@@ -1,5 +1,5 @@
 {
-  "latestVersion": "1.0.2",
+  "latestVersion": "1.0.5",
   "downloadUrl": "https://<USERNAME>.github.io/<REPO>/my-app-latest.apk",
   "changelog": "رفع باگ‌ها و بهبود رابط",
   "mandatory": false,
