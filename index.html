@@ -3,11 +3,158 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Price</title>
+  <title>Price App</title>
+  <style>
+    body {
+      font-family: "Vazir", sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg,#0d9488,#14b8a6);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+    header p {
+      margin-top: 8px;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    .content {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .btn-download {
+      display: inline-block;
+      padding: 16px 32px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(135deg, #0d9488, #14b8a6);
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+    .btn-download:hover {
+      transform: scale(1.08);
+      background: linear-gradient(135deg, #14b8a6, #0d9488);
+    }
+    .notice {
+      margin-top: 18px;
+      padding: 14px 18px;
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 10px;
+      font-size: 15px;
+      color: #856404;
+      display: inline-block;
+      max-width: 420px;
+    }
+    .support {
+      margin: 60px auto;
+      max-width: 900px;
+      padding: 0 20px;
+    }
+    .support h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 25px;
+      color: #111827;
+    }
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      padding: 20px;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.25s ease;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+    }
+    .card i {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .whatsapp { background: #25D366; }
+    .telegram { background: #0088cc; }
+    .gmail { background: #DB4437; }
+    .phone { background: #FF9800; }
+    .website { background: #4CAF50; }
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #6B7280;
+      padding: 20px;
+      margin-top: 50px;
+      border-top: 1px solid #e5e7eb;
+    }
+  </style>
+  <!-- آیکون‌ها -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <h1>به سایت من خوش آمدید 🌐</h1>
-  <p>اینجا نسخه‌های جدید اپلیکیشن و اخبارش قرار می‌گیره.</p>
-  <a href="https://github.com/zabiullahjm-star/price-site/releases/download/1.4.1/application-d69a9b81-28cd-445b-b913-54634b5c8de8.apk">📥 دانلود آخرین نسخه اپلیکیشن</a>
+  <!-- هدر -->
+  <header>
+    <h1>به سایت من خوش آمدید 🌐</h1>
+    <p>اینجا نسخه‌های جدید اپلیکیشن و اخبارش قرار می‌گیره</p>
+  </header>
+
+  <!-- بخش دانلود -->
+  <div class="content">
+    <a class="btn-download" href="https://github.com/zabiullahjm-star/price-site/releases/download/1.4.1/application-d69a9b81-28cd-445b-b913-54634b5c8de8.apk" download>
+      📥 دانلود آخرین نسخه اپلیکیشن
+    </a>
+    <div class="notice">
+      ⚠️ کاربران داخل ایران برای دانلود لازم است <strong>فیلترشکن یا VPN خود را خاموش کنند</strong>.
+    </div>
+  </div>
+
+  <!-- پشتیبانی -->
+  <div class="support">
+    <h2>پشتیبانی</h2>
+    <div class="support-grid">
+      <a href="https://wa.me/989388716739" class="card whatsapp">
+        <i class="fab fa-whatsapp"></i> واتساپ
+      </a>
+      <a href="https://t.me/SOHRAB_LATIFI" class="card telegram">
+        <i class="fab fa-telegram"></i> تلگرام
+      </a><i class="fas fa-envelope"></i> ایمیل (Gmail)
+      </a>
+      <a href="tel:+989388716739" class="card phone">
+        <i class="fas fa-phone"></i> تماس تلفنی
+      </a>
+      <a href="https://zabiullahjm-star.github.io/price-site/" class="card website">
+        <i class="fas fa-globe"></i> وب‌سایت
+      </a>
+    </div>
+  </div>
+
+  <!-- فوتر -->
+  <footer>
+    © 2025 همه حقوق محفوظ است | Price App
+  </footer>
 </body>
 </html>
+      <a href="mailto:priceapp.1920@gmail.com" class="card gmail">
