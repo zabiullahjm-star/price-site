@@ -1,160 +1,518 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Price App</title>
+  <title>Price App - اپلیکیشن پرایس</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Vazir:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Reset و تنظیمات پایه */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: "Vazir", sans-serif;
-      margin: 0;
-      background: #f9fafb;
+      font-family: "Vazir", "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: #333;
-      line-height: 1.6;
+      line-height: 1.8;
+      min-height: 100vh;
+      position: relative;
     }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.03"><polygon fill="%23000" points="1000,1000 0,1000 0,0"/></svg>');
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* هدر مدرن */
     header {
-      background: linear-gradient(135deg,#0d9488,#14b8a6);
-      color: white;
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+      backdrop-filter: blur(20px);
       text-align: center;
-      padding: 40px 20px;
-      border-bottom-left-radius: 40px;
-      border-bottom-right-radius: 40px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 60px 20px 50px;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
     }
-    header p {
-      margin-top: 8px;
-      font-size: 1rem;
-      opacity: 0.9;
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
     }
-    .content {
-      text-align: center;
-      padding: 40px 20px;
-    }
-    .btn-download {
-      display: inline-block;
-      padding: 16px 32px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #fff;
+
+    .logo {
+      width: 80px;
+      height: 80px;
       background: linear-gradient(135deg, #0d9488, #14b8a6);
-      border-radius: 14px;
-      text-decoration: none;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      border-radius: 20px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: white;
+      box-shadow: 0 8px 20px rgba(13, 148, 136, 0.3);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #0d9488, #14b8a6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* بخش اصلی */
+    .main-content {
+      max-width: 1200px;
+      margin: -30px auto 0;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* کارت دانلود */
+    .download-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      margin-bottom: 30px;
+      transform: translateY(0);
       transition: all 0.3s ease;
     }
-    .btn-download:hover {
-      transform: scale(1.08);
-      background: linear-gradient(135deg, #14b8a6, #0d9488);
+
+    .download-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
     }
-    .notice {
-      margin-top: 18px;
-      padding: 14px 18px;
-      background: #fff3cd;
-      border: 1px solid #ffeeba;
-      border-radius: 10px;
-      font-size: 15px;
-      color: #856404;
+
+    .version-badge {
       display: inline-block;
-      max-width: 420px;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    }display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px 40px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #0d9488, #14b8a6);
+      border-radius: 16px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(13, 148, 136, 0.4);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      border: none;
+      cursor: pointer;
+      min-width: 280px;
     }
+
+    .btn-download::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-download:hover::before {
+      left: 100%;
+    }
+
+    .btn-download:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(13, 148, 136, 0.6);
+    }
+
+    .btn-download:active {
+      transform: translateY(0) scale(1);
+    }
+
+    .btn-download i {
+      font-size: 1.5rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-5px); }
+      60% { transform: translateY(-3px); }
+    }
+
+    /* هشدار */
+    .notice {
+      background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+      border: 2px solid #ffeaa7;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 25px;
+      text-align: center;
+      font-size: 1rem;
+      color: #856404;
+      box-shadow: 0 5px 15px rgba(133, 100, 4, 0.1);
+    }
+
+    .notice strong {
+      color: #d63031;
+    }
+
+    /* بخش پشتیبانی */
     .support {
-      margin: 60px auto;
-      max-width: 900px;
-      padding: 0 20px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 50px 30px;
+      margin: 40px 0;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     }
+
     .support h2 {
       text-align: center;
-      font-size: 24px;
-      margin-bottom: 25px;
-      color: #111827;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, #2d3436, #636e72);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
     }
+
+    .support h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(135deg, #0d9488, #14b8a6);
+      border-radius: 2px;
+    }
+
     .support-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
     }
+
     .card {
-      padding: 20px;
-      border-radius: 14px;
+      padding: 30px 20px;
+      border-radius: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       color: white;
-      font-size: 18px;
+      font-size: 1.1rem;
       font-weight: 600;
       text-decoration: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.25s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: rgba(255,255,255,0.5);
+    }
+
     .card:hover {
-      transform: translateY(-6px);
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
     }
+
     .card i {
-      font-size: 28px;
-      margin-bottom: 10px;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
     }
-    .whatsapp { background: #25D366; }
-    .telegram { background: #0088cc; }
-    .gmail { background: #DB4437; }
-    .phone { background: #FF9800; }
-    .website { background: #4CAF50; }
+
+    .card:hover i {
+      transform: scale(1.2);
+    }
+
+    .whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
+    .telegram { background: linear-gradient(135deg, #0088cc, #006699); }
+    .gmail { background: linear-gradient(135deg, #DB4437, #B23121); }
+    .phone { background: linear-gradient(135deg, #FF9800, #F57C00); }
+
+    /* دکمه دانلود بهبود یافته */
+    .btn-download {/* فوتر */
     footer {
       text-align: center;
-      font-size: 14px;
-      color: #6B7280;
-      padding: 20px;
-      margin-top: 50px;
-      border-top: 1px solid #e5e7eb;
+      padding: 30px 20px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      margin-top: 60px;
+      background: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    /* ریسپانسیو */
+    @media (max-width: 768px) {
+      header {
+        padding: 40px 20px 30px;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .download-card {
+        padding: 30px 20px;
+        margin: 0 10px 30px;
+      }
+
+      .btn-download {
+        padding: 18px 30px;
+        font-size: 1.1rem;
+        min-width: 250px;
+      }
+
+      .support-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+      }
+
+      .card {
+        padding: 25px 15px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .support-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .btn-download {
+        width: 100%;
+        min-width: auto;
+      }
+    }
+
+    /* انیمیشن اسکرول نرم */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* افکت‌های ویژه */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(13, 148, 136, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0); }
     }
   </style>
-  <!-- آیکون‌ها -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <!-- هدر -->
   <header>
-    <h1>به سایت پرایس خوش آمدید 🌐</h1>
-    <p>اینجا نسخه‌های جدید اپلیکیشن و اخبارش قرار می‌گیره</p>
+    <div class="logo">
+      <i class="fas fa-chart-line"></i>
+    </div>
+    <h1>اپلیکیشن پرایس 📊</h1>
+    <p>نسخه‌های جدید و به‌روزرسانی‌های اپلیکیشن در اینجا منتشر می‌شود</p>
   </header>
 
-  <!-- بخش دانلود -->
-  <div class="content">
-    <a class="btn-download" href="https://github.com/zabiullahjm-star/price-site/releases/download/1.6.3/application-4d693115-095a-4bc2-ac80-b76648a50865.apk" download>
-      📥 دانلود آخرین نسخه اپلیکیشن
-    </a>
- <div class="notice">
-      ⚠️ کاربران داخل ایران برای دانلود لازم است <strong>
-   فیلترشکن خود را خاموش کنید
-      </strong>
-    </div>
-  </div>
+  <!-- محتوای اصلی -->
+  <div class="main-content">
+    <!-- کارت دانلود -->
+    <div class="download-card">
+      <div class="version-badge">
+        <i class="fas fa-rocket"></i> نسخه ۱.۶.۳ - جدیدترین نسخه
+      </div>
+      
+      <a href="https://github.com/zabiullahjm-star/price-site/releases/download/1.6.3/application-4d693115-095a-4bc2-ac80-b76648a50865.apk" 
+         download 
+         class="btn-download pulse">
+        <i class="fas fa-download"></i>
+        دانلود اپلیکیشن پرایس
+      </a>
 
-  <!-- پشتیبانی -->
-  <div class="support">
-    <h2>پشتیبانی</h2>
-    <div class="support-grid">
-      <a href="https://wa.me/989388716739" class="card whatsapp">
-        <i class="fab fa-whatsapp"></i> واتساپ
-      </a>
-      <a href="https://t.me/SOHRAB_LATIFI" class="card telegram">
-        <i class="fab fa-telegram"></i> تلگرام
-     <a href="mailto:priceapp.1920@gmail.com" class="card gmail">
-<i class="fas fa-envelope"></i> ایمیل (Gmail)
-      </a>
-      <a href="tel:+989388716739" class="card phone">
-        <i class="fas fa-phone"></i> تماس تلفنی
-      </a>
-         </div>
+      <div class="notice">
+        <i class="fas fa-exclamation-triangle"></i>
+        کاربران داخل ایران برای دانلود لازم است 
+        <strong>فیلترشکن خود را خاموش کنید</strong>
+      </div>
+    </div>
+
+    <!-- پشتیبانی -->
+    <div class="support">
+      <h2>راه‌های ارتباطی و پشتیبانی</h2>
+      <div class="support-grid">
+        <a href="https://wa.me/989388716739" class="card whatsapp">
+          <i class="fab fa-whatsapp"></i>
+          واتساپ
+        </a>
+        <a href="https://t.me/SOHRAB_LATIFI" class="card telegram">
+          <i class="fab fa-telegram"></i>
+          تلگرام
+        </a>
+        <a href="mailto:priceapp.1920@gmail.com" class="card gmail">
+          <i class="fas fa-envelope"></i>
+          ایمیل
+        </a>
+        <a href="tel:+989388716739" class="card phone">
+          <i class="fas fa-phone"></i>
+          تماس
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- فوتر -->
   <footer>
-    © 2025 همه حقوق محفوظ است | Price App
+    <p>© ۲۰۲۴ - تمامی حقوق برای اپلیکیشن پرایس محفوظ است</p>
+    <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">
+      <i class="fas fa-heart" style="color: #ff6b6b;"></i>
+      طراحی شده با passion
+    </p>
   </footer>
+
+  <script>
+    // اسکریپت برای افکت‌های تعاملی
+    document.addEventListener('DOMContentLoaded', function() {
+      // افکت تایپ برای عنوان
+      const title = document.querySelector('header h1');
+      const text = title.textContent;
+      title.textContent = '';
+      
+      let i = 0;
+      const typeWriter = () => {
+        if (i < text.length) {
+          title.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, 100);
+        }
+      };
+      setTimeout(typeWriter, 1000);
+
+      // انیمیشن اسکرول برای کارت‌ها
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // اعمال انیمیشن به المان‌ها
+      document.querySelectorAll('.download-card, .support, .card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.6s ease';
+        observer.observe(el);
+      });
+
+      // افزودن افکت کلیک به دکمه دانلود
+      const downloadBtn = document.querySelector('.btn-download');
+      downloadBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // ایجاد افکت ریپل
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = 
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.6);
+          transform: scale(0);
+          animation: ripple 0.6s linear;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${x}px;
+          top: ${y}px;
+        ;
+        
+        this.appendChild(ripple);
+        
+        // دانلود پس از افکت
+        setTimeout(() => {
+          window.location.href = this.href;
+        }, 300);
+      });
+
+      // اضافه کردن استایل ریپل
+      const style = document.createElement('style');
+      style.textContent = 
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+      ;
+      document.head.appendChild(style);
+    });
+  </script>
 </body>
 </html>
-      
